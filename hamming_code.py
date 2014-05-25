@@ -47,9 +47,12 @@ if __name__ == '__main__': #python version of main()
     #build the result string
     #the original bits
     bsymbol = BitString(SYMBOL)
+
     #append to 8 bits length
     for i in range(0,LENGTH-FindBits(SYMBOL)):
         bsymbol = '0' + bsymbol
+
+    print("Encoding bitstring " + bsymbol)
 
     # bsymbol = 'xx' + bsymbol[:1] + 'x' + bsymbol[1:4] + 'x' + bsymbol[4:]
 
@@ -66,6 +69,8 @@ if __name__ == '__main__': #python version of main()
     bsymbol = "".join(bsymbol)
     #count number of parities
     PARITYNUM = bsymbol.count('x')
+
+    print("Added " + str(PARITYNUM) + " paritybits")
 
     #calculate the parity bits
     #dictionary to store parity strings
@@ -91,4 +96,4 @@ if __name__ == '__main__': #python version of main()
         bsymbol = "".join(bsymbol)#convert back to string
 
     #and finally print the result!
-    print(bsymbol)
+    print("Encoded bitstring: " + bsymbol)

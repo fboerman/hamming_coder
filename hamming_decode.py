@@ -20,8 +20,9 @@ if __name__ == '__main__': #pythons equivalent of main()
     #we do this by finding the highest power of 2 that can be fitted in the integer of length of bitstring
     paritynum = ceil(log2(len(BITSTRING)))
 
-    #build the parity strings same way as when encoding
+    print("Decoding bitstring " + BITSTRING + " with " + str(paritynum) + " paritybits and " + str(len(BITSTRING) - paritynum) + " databits")
 
+    #build the parity strings same way as when encoding
     parities = {}
     for i in range(0,paritynum):
         j = pow(2,i)
@@ -52,8 +53,11 @@ if __name__ == '__main__': #pythons equivalent of main()
         else:
             correctstring[wrongbit-1] = '0'
         correctstring = ''.join(correctstring)
+
+        print("Detected and corrected error in bitstring at position " + str(wrongbit))
     else:#no error
         correctstring = BITSTRING
+        print("No error detected")
 
     #now the string is corrected, extract the information from it
     #we do this by throwing away all the parity bits
@@ -64,5 +68,6 @@ if __name__ == '__main__': #pythons equivalent of main()
         databitstring[j-1] = ""
     #join again and convert back to decimal and print it
     databitstring = "".join(databitstring)
+    print("Correct databitstring: " + databitstring)
     data = int(databitstring,2)
-    print(data)
+    print("Symbol in bitstring: " + str(data))
