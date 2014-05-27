@@ -12,23 +12,23 @@ int isPowerOfTwo(int x)
 }
 
 
-int main(int argc, char* argv[])//input arguments: .exe/encoded bitstring
+int Decode(string BITSTRING)
 {
 
-	//check the inputarguments
-	if (argc < 2)
-	{
-		cout << "Not enough inputarguments" << endl;
-		return -1;
-	}
+	////check the inputarguments
+	//if (argc < 2)
+	//{
+	//	cout << "Not enough inputarguments" << endl;
+	//	return -1;
+	//}
 
-	BITSTRING = argv[1];
+	//BITSTRING = argv[1];
 
 	//calculate ammount of powers of 2 that are in the ammount of bits, aka find the ammount of parity bits
 	//we do this by finding the highest power of 2 that can be fitted in the integer of length of bitstring
 	PARITYNUM = ceil(log2(BITSTRING.length()));
 
-	cout << "Decoding bitstring " << BITSTRING << " with " << PARITYNUM << " paritybits and " << BITSTRING.length() - PARITYNUM << " databits." << endl;
+	//cout << "Decoding bitstring " << BITSTRING << " with " << PARITYNUM << " paritybits and " << BITSTRING.length() - PARITYNUM << " databits." << endl;
 
 	//iterate through bitstring and create paritystrings same as with encoding
 	//however this time check if the parity is even, if not write a 1 to correcting bitstring
@@ -89,6 +89,47 @@ int main(int argc, char* argv[])//input arguments: .exe/encoded bitstring
 		}
 	}
 
-	cout << "Correct databitstring: " << DATABITSTRING << endl;
-	cout << "Symbol in bitstring: " << BinToDec(DATABITSTRING) << endl;
+	//cout << "Correct databitstring: " << DATABITSTRING << endl;
+	//cout << "Symbol in bitstring: " << BinToDec(DATABITSTRING) << endl;
+
+	return BinToDec(DATABITSTRING);
+}
+
+int main(int argc, char* argv[]) //input arguments: .exe/inputfile/lenght of bitword
+{
+	//check and parse inputarguments
+	if (argc < 3)
+	{
+		cout << "Error: invalid input arguments" << endl;
+		return -1;
+	}
+
+	string inputname = argv[1];
+	int LENGTH = atoi(argv[2]);
+
+	//open the file and grab the line with data
+	ifstream file;
+	string INPUTDATA;
+	file.open(inputname);
+
+	if (file.fail())
+	{
+		cout << "Error reading file " << inputname << endl;
+		return -1;
+	}
+
+	getline(file, INPUTDATA);
+	//open output file
+	ofstream resstream("result.txt");
+	ofstream datastream("data.txt");
+
+	//iterate through the 8 bits parts and decode it bitword for bitword
+	for (int i = 0; i < INPUTDATA.length(); i += 12)
+	{
+		string bitword = INPUTDATA.substr(i, 12);
+		datastream << bitword << endl;
+		resstream << (char)Decode(bitword);
+	}
+	datastream.close();
+	resstream.close();
 }

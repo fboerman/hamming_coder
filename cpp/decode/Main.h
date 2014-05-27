@@ -9,14 +9,14 @@
 #include <iostream>
 #include "BinConversion.h"
 #include <math.h>
+#include <fstream>
 
 //globals
 std::string BITSTRING;
 int PARITYNUM;
 
-
 //functions
 int isPowerOfTwo(int x);
 int main(int argc, char* argv[]);
-
+int Decode(std::string BITSTRING);
 #endif
